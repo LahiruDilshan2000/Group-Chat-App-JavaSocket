@@ -1,13 +1,14 @@
 package lk.ijse.gdse.client.controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,6 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,7 +26,7 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
-public class ChatController {
+public class ChatFormController {
     public VBox vbox;
     public JFXTextField txtMsg;
     public ScrollPane ScrollPane;
@@ -33,7 +36,10 @@ public class ChatController {
     public DataOutputStream outputStream;
     public String userName;
     public String type;
-    public String imagePath;
+    public File file;
+    public Label lblName;
+    public ImageView img;
+    public JFXButton btnCancel;
 
     public void initialize() {
 
@@ -68,6 +74,8 @@ public class ChatController {
         }).start();
 
 
+        img.setVisible(false);
+        btnCancel.setVisible(false);
         vbox.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -92,9 +100,9 @@ public class ChatController {
 
             HBox hBox = new HBox();
 
-            if (userName.equalsIgnoreCase(this.userName)){
+            if (userName.equalsIgnoreCase(this.userName)) {
                 hBox.setAlignment(Pos.CENTER_RIGHT);
-            }else {
+            } else {
                 hBox.setAlignment(Pos.CENTER_LEFT);
             }
 
@@ -174,55 +182,83 @@ public class ChatController {
     public void setUserName(String userName) {
 
         this.userName = userName;
-    }
-
-    public void btnBackOnAction(ActionEvent actionEvent) {
-
-        try {
-
-            BufferedImage bufferedImage = ImageIO.read(new File("C:\\My Workind Directry\\Intellij IDEA Project\\Group-Chat-App\\src\\lk\\ijse\\gdse\\Client\\assets\\bak.png"));
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
-
-            byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
-
-            outputStream.writeUTF("picture".trim());
-            outputStream.writeUTF(this.userName.trim());
-            outputStream.write(size);
-            outputStream.write(byteArrayOutputStream.toByteArray());
-
-            outputStream.flush();
-
-            System.out.println("Flushed: " + System.currentTimeMillis());
-
-            System.out.println("Closing: " + System.currentTimeMillis());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        lblName.setText(this.userName);
 
     }
 
     public void btnSendOnAction(ActionEvent actionEvent) {
 
-        if (!txtMsg.getText().isEmpty()) {
-            try {
+        try {
+
+            if (!txtMsg.getText().isEmpty()) {
+
                 outputStream.writeUTF("text".trim());
                 outputStream.writeUTF(this.userName.trim());
                 outputStream.writeUTF(txtMsg.getText().trim());
-                /*String srt = userName+" : "+txtMsg.getText().trim();
-                byte[] array = srt.getBytes(StandardCharsets.UTF_8);
-                outputStream.write(array);*/
                 outputStream.flush();
                 txtMsg.clear();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+
+            } else if (null != this.file) {
+
+                BufferedImage bufferedImage = ImageIO.read(this.file);
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+
+                byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
+
+                outputStream.writeUTF("picture".trim());
+                outputStream.writeUTF(this.userName.trim());
+                outputStream.write(size);
+                outputStream.write(byteArrayOutputStream.toByteArray());
+
+                outputStream.flush();
+
+                txtMsg.setVisible(true);
+                btnCancel.setVisible(true);
+                img.setVisible(false);
+                btnCancel.setVisible(false);
+                file = null;
+
+                System.out.println("Flushed: " + System.currentTimeMillis());
+
+                System.out.println("Closing: " + System.currentTimeMillis());
             }
-        }/*else if (!imagePath.isEmpty()) {
-        }*/
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void btnAddOnAction(ActionEvent actionEvent) {
+    public void btnAddOnAction(ActionEvent actionEvent) throws IOException {
+
+        Stage stage = (Stage) lblName.getScene().getWindow();
+
+        FileChooser fileChooser = new FileChooser();
+        this.file = fileChooser.showOpenDialog(stage);
+
+        if (null != this.file) {
+
+
+            BufferedImage bufferedImage = ImageIO.read(this.file);
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+
+            byte[] array = byteArrayOutputStream.toByteArray();
+            Image image = new Image(new ByteArrayInputStream(array));
+            img.setImage(image);
+            txtMsg.setVisible(false);
+            img.setVisible(true);
+            btnCancel.setVisible(true);
+        }
+    }
+
+    public void btnCancelOnAction(ActionEvent actionEvent) {
+
+        this.file = null;
+        img.setVisible(false);
+        btnCancel.setVisible(false);
+        txtMsg.setVisible(true);
     }
 }

@@ -1,12 +1,5 @@
-package lk.ijse.gdse.server;
+package lk.ijse.gdse.server.controller;
 
-import javafx.scene.image.ImageView;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -18,10 +11,7 @@ public class LocalSocketManager implements Runnable {
     public List<LocalSocketManager> localSocketManagerList;
     public DataInputStream inputStream;
     public DataOutputStream outputStream;
-    public InputStream inputStream2;
     public String type;
-    public String massage1 = "";
-    public String userName;
 
     public LocalSocketManager(Socket socket, List<LocalSocketManager> localSocketManagerList) {
 
@@ -41,47 +31,14 @@ public class LocalSocketManager implements Runnable {
 
                 type = inputStream.readUTF();
                 if (type.equalsIgnoreCase("text")) {
-                    /*String s = inputStream.readUTF();
-                    System.out.println(s);
-                    String w = inputStream.readUTF();
-                    System.out.println(w);*/
+
                     sendText();
+
                 }else {
+
                     sendFile();
+
                 }
-                //sentMsg();
-
-
-
-                /*byte[] sizeAr = new byte[4];
-                inputStream.read(sizeAr);
-                int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-
-                byte[] imageAr = new byte[size];
-                inputStream.read(imageAr);
-
-
-
-                for (LocalSocketManager localSocketManager : localSocketManagerList) {
-                    localSocketManager.outputStream.write(sizeAr);
-                    localSocketManager.outputStream.write(imageAr);
-                    localSocketManager.outputStream.flush();
-                }*/
-
-              /*  byte[] sizeAr = new byte[4];
-                inputStream.read(sizeAr);
-                int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-
-                byte[] imageAr = new byte[size];
-                inputStream.read(imageAr);
-
-                BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageAr));
-
-                System.out.println("Received " + image.getHeight() + "x" + image.getWidth() + ": " + System.currentTimeMillis());
-                ImageIO.write(image, "png", new File("C:\\My Workind Directry\\Intellij IDEA Project\\Group-Chat-App\\src\\lk\\ijse\\gdse\\Client\\assets\\bak2222.png"));
-*/
-                //serverSocket.close();
-
             }
             inputStream.close();
             outputStream.close();
@@ -112,6 +69,7 @@ public class LocalSocketManager implements Runnable {
                 localSocketManager.outputStream.write(imageAr);
                 localSocketManager.outputStream.flush();
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -121,6 +79,7 @@ public class LocalSocketManager implements Runnable {
     private void sendText() {
 
         try {
+
             String userName = inputStream.readUTF();
             String message = inputStream.readUTF();
             System.out.println(userName);
@@ -132,6 +91,7 @@ public class LocalSocketManager implements Runnable {
                 localSocketManager.outputStream.writeUTF(message);
                 localSocketManager.outputStream.flush();
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

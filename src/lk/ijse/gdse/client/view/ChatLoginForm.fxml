@@ -27,7 +27,7 @@
                <children>
                   <ImageView layoutX="178.0" layoutY="123.0">
                      <image>
-                        <Image url="@../assets/Chat.png" />
+                        <Image url="@../assets/pics/Chat.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="187.0" layoutY="71.0" prefHeight="123.0" prefWidth="52.0" text=" .." textFill="WHITE">
@@ -73,7 +73,7 @@
          <children>
             <ImageView fitHeight="22.0" fitWidth="30.0" layoutX="29.0" layoutY="12.0">
                <image>
-                  <Image url="@../assets/right-arrow.png" />
+                  <Image url="@../assets/pics/right-arrow.png" />
                </image>
             </ImageView>
             <JFXButton onAction="#btnLoginOnAction" prefHeight="46.0" prefWidth="88.0" text="." textFill="TRANSPARENT">

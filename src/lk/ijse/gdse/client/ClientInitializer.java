@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class clientInit extends Application {
+public class ClientInitializer extends Application {
 
     public static void main(String[] args) {
         launch(args);

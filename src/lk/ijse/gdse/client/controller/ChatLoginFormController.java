@@ -31,14 +31,14 @@ public class ChatLoginFormController {
             txtUserName.requestFocus();
             return;
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/lk/ijse/gdse/Client/view/chat.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/lk/ijse/gdse/client/view/ChatForm.fxml"));
         Parent load = null;
         try {
             load = fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ChatController controller = fxmlLoader.getController();
+        ChatFormController controller = fxmlLoader.getController();
         controller.setUserName(txtUserName.getText());
         Stage stage = new Stage();
         stage.setTitle("Group Chatt");

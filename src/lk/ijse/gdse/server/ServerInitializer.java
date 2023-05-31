@@ -1,13 +1,14 @@
 package lk.ijse.gdse.server;
 
-import java.io.DataInputStream;
+import lk.ijse.gdse.server.controller.LocalSocketManager;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Server {
+public class ServerInitializer {
     public static void main(String[] args) {
 
         List<LocalSocketManager> localSocketManagerList = new ArrayList<>();
