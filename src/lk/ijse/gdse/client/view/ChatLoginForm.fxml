@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,16 +11,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="647.0" prefWidth="452.0" style="-fx-background-color: #fff;" styleClass="shadow" stylesheets="@../assets/css/Styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.client.controller.ChatLoginFormController">
+<AnchorPane fx:id="pane" prefHeight="618.0" prefWidth="452.0" styleClass="shadow" stylesheets="@../assets/css/Styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.client.controller.ChatLoginFormController">
    <children>
-      <Button layoutX="47.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnLoginOnAction" prefHeight="53.0" prefWidth="358.0" style="-fx-background-color: #0984e3; -fx-background-radius: 30px;" styleClass="shadow" stylesheets="@../assets/css/Styles.css" text="Log in" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Pane layoutX="29.0" layoutY="113.0" prefHeight="437.0" prefWidth="452.0" style="-fx-background-radius: 0% 100% 0% 100% / 64% 0% 100% 36%; -fx-background-color: linear-gradient(to left, #1488cc, #2b32b2);" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="29.0" layoutY="113.0" prefHeight="469.0" prefWidth="452.0" style="-fx-background-radius: 0% 100% 0% 100% / 64% 0% 100% 36%; -fx-background-color: linear-gradient(to left, #1488cc, #2b32b2);" AnchorPane.bottomAnchor="173.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane layoutX="14.0" layoutY="14.0" opacity="0.51" prefHeight="86.0" prefWidth="88.0" style="-fx-background-color: linear-gradient(to left, #1488cc, #2b32b2); -fx-background-radius: 69% 31% 45% 55% / 36% 35% 65% 64%;" />
             <Pane layoutX="32.0" layoutY="233.0" opacity="0.42" prefHeight="53.0" prefWidth="52.0" style="-fx-background-color: linear-gradient(to left, #1488cc, #2b32b2); -fx-background-radius: 12% 88% 45% 55% / 76% 35% 65% 24%;" />
@@ -30,7 +23,7 @@
             <Pane layoutX="136.0" layoutY="239.0" opacity="0.51" prefHeight="41.0" prefWidth="41.0" style="-fx-background-color: linear-gradient(to left, #1488cc, #2b32b2); -fx-background-radius: 69% 31% 45% 55% / 36% 35% 65% 64%;" />
             <Pane layoutX="337.0" layoutY="256.0" opacity="0.18" prefHeight="61.0" prefWidth="63.0" style="-fx-background-color: linear-gradient(to left, #1488cc, #2b32b2); -fx-background-radius: 66% 34% 59% 41% / 76% 18% 82% 24%;" />
             <Pane layoutX="348.0" layoutY="339.0" opacity="0.18" prefHeight="41.0" prefWidth="41.0" style="-fx-background-color: linear-gradient(to left, #1488cc, #2b32b2); -fx-background-radius: 66% 34% 59% 41% / 76% 18% 82% 24%;" />
-            <Pane layoutX="2.0" prefHeight="437.0" prefWidth="452.0">
+            <Pane layoutX="2.0" prefHeight="410.0" prefWidth="452.0">
                <children>
                   <ImageView layoutX="178.0" layoutY="123.0">
                      <image>
@@ -66,17 +59,29 @@
             </Pane>
          </children>
       </Pane>
-      <Pane layoutX="47.0" layoutY="478.0" prefHeight="53.0" prefWidth="358.0" style="-fx-background-radius: 30px; -fx-background-color: rgba(13, 110, 253, 0.08); -fx-border-color: rgba(0,0,0,0.2); -fx-border-radius: 30px;" styleClass="shadow" stylesheets="@../assets/css/Styles.css">
+      <Pane layoutX="14.0" layoutY="529.0" prefHeight="46.0" prefWidth="325.0" style="-fx-background-radius: 30px; -fx-background-color: rgba(13, 110, 253, 0.02); -fx-border-color: rgba(0,0,0,0.2); -fx-border-radius: 30px;" styleClass="shadow" stylesheets="@../assets/css/Styles.css">
          <children>
-            <JFXTextField fx:id="txtUserName" focusColor="#0b48ee" layoutX="24.0" layoutY="6.0" prefHeight="41.0" prefWidth="313.0" promptText="User Name..." unFocusColor="#4d4d4d00">
+            <JFXTextField fx:id="txtUserName" focusColor="#5500ff" layoutX="20.0" layoutY="7.0" prefHeight="32.0" prefWidth="288.0" promptText="User Name..." stylesheets="@../assets/css/Styles.css" unFocusColor="#4d4d4d00">
                <font>
-                  <Font name="System Italic" size="18.0" />
+                  <Font name="Arial" size="17.0" />
                </font>
             </JFXTextField>
          </children>
       </Pane>
-      <Line endX="52.0" layoutX="140.0" layoutY="447.0" startX="-85.0" stroke="#0000004a" />
-      <Label layoutX="202.0" layoutY="437.0" text="Log in" textFill="#000000a9" />
-      <Line endX="43.0" layoutX="352.0" layoutY="448.0" startX="-100.0" stroke="#0000004a" />
+      <Line endX="277.0" layoutX="141.0" layoutY="491.0" startX="-117.0" stroke="#0000004a" />
+      <Pane layoutX="350.0" layoutY="529.0" prefHeight="46.0" prefWidth="88.0" style="-fx-background-color: #2e86de; -fx-background-radius: 30px;">
+         <children>
+            <ImageView fitHeight="22.0" fitWidth="30.0" layoutX="29.0" layoutY="12.0">
+               <image>
+                  <Image url="@../assets/right-arrow.png" />
+               </image>
+            </ImageView>
+            <JFXButton onAction="#btnLoginOnAction" prefHeight="46.0" prefWidth="88.0" text="." textFill="TRANSPARENT">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

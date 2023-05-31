@@ -50,35 +50,11 @@ public class ChatController {
 
                     type = inputStream.readUTF();
 
-                    if(type.equalsIgnoreCase("text")){
+                    if (type.equalsIgnoreCase("text")) {
                         setText();
+                    } else {
+                        setFile();
                     }
-
-                    /*byte[] sizeAr = new byte[4];
-                    inputStream.read(sizeAr);
-                    int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-
-                    byte[] imageAr = new byte[size];
-                    inputStream.read(imageAr);
-
-
-                    HBox hBox = new HBox();
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
-                    hBox.setPadding(new Insets(5, 5, 5, 10));
-
-
-                    Image image1 = new Image(new ByteArrayInputStream(imageAr));
-
-                    ImageView imageView = new ImageView(image1);
-
-                    hBox.getChildren().add(imageView);
-
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            vbox.getChildren().add(hBox);
-                        }
-                    });*/
 
 
                 }
@@ -100,6 +76,48 @@ public class ChatController {
         });
     }
 
+    private void setFile() {
+
+        try {
+
+            String userName = inputStream.readUTF();
+
+            byte[] sizeAr = new byte[4];
+            inputStream.read(sizeAr);
+            int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
+
+            byte[] imageAr = new byte[size];
+            inputStream.read(imageAr);
+
+
+            HBox hBox = new HBox();
+
+            if (userName.equalsIgnoreCase(this.userName)){
+                hBox.setAlignment(Pos.CENTER_RIGHT);
+            }else {
+                hBox.setAlignment(Pos.CENTER_LEFT);
+            }
+
+            hBox.setPadding(new Insets(5, 5, 5, 10));
+
+
+            Image image1 = new Image(new ByteArrayInputStream(imageAr));
+
+            ImageView imageView = new ImageView(image1);
+
+            hBox.getChildren().add(imageView);
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    vbox.getChildren().add(hBox);
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void setText() {
 
         try {
@@ -112,7 +130,7 @@ public class ChatController {
                 Text text = new Text(message);
                 TextFlow textFlow = new TextFlow(text);
 
-                if (userName.equalsIgnoreCase(this.userName)){
+                if (userName.equalsIgnoreCase(this.userName)) {
 
                     hBox.setAlignment(Pos.CENTER_RIGHT);
                     hBox.setPadding(new Insets(5, 5, 5, 10));
@@ -123,9 +141,9 @@ public class ChatController {
 
                     text.setFill(Color.color(0.934, 0.945, 0.996));
 
-                }else {
+                } else {
 
-                    text.setText(userName+" : "+message);
+                    text.setText(userName + " : " + message);
 
                     hBox.setAlignment(Pos.CENTER_LEFT);
                     hBox.setPadding(new Insets(5, 5, 5, 10));
@@ -146,7 +164,7 @@ public class ChatController {
                     }
                 });
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -169,6 +187,8 @@ public class ChatController {
 
             byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
 
+            outputStream.writeUTF("picture".trim());
+            outputStream.writeUTF(this.userName.trim());
             outputStream.write(size);
             outputStream.write(byteArrayOutputStream.toByteArray());
 
@@ -201,5 +221,8 @@ public class ChatController {
             }
         }/*else if (!imagePath.isEmpty()) {
         }*/
+    }
+
+    public void btnAddOnAction(ActionEvent actionEvent) {
     }
 }

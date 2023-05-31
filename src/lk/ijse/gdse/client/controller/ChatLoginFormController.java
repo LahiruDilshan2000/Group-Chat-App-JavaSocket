@@ -19,9 +19,12 @@ public class ChatLoginFormController {
     public AnchorPane pane;
     public JFXTextField txtUserName;
 
+    public void btnLogInOnAction(ActionEvent actionEvent) throws IOException {
 
-    public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
 
+    }
+
+    public void btnLoginOnAction(ActionEvent actionEvent) {
         if (txtUserName.getText().isEmpty()){
             new Alert(Alert.AlertType.ERROR, "Name is empty !", ButtonType.OK).show();
             txtUserName.setFocusColor(Paint.valueOf("Red"));
@@ -29,7 +32,12 @@ public class ChatLoginFormController {
             return;
         }
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/lk/ijse/gdse/Client/view/chat.fxml"));
-        Parent load = fxmlLoader.load();
+        Parent load = null;
+        try {
+            load = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ChatController controller = fxmlLoader.getController();
         controller.setUserName(txtUserName.getText());
         Stage stage = new Stage();

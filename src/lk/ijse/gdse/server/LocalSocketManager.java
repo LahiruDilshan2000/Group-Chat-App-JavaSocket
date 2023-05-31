@@ -95,6 +95,9 @@ public class LocalSocketManager implements Runnable {
     private void sendFile() {
 
         try {
+
+            String userName = inputStream.readUTF();
+
             byte[] sizeAr = new byte[4];
             inputStream.read(sizeAr);
             int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
@@ -104,6 +107,7 @@ public class LocalSocketManager implements Runnable {
 
             for (LocalSocketManager localSocketManager : localSocketManagerList) {
                 localSocketManager.outputStream.writeUTF(type);
+                localSocketManager.outputStream.writeUTF(userName);
                 localSocketManager.outputStream.write(sizeAr);
                 localSocketManager.outputStream.write(imageAr);
                 localSocketManager.outputStream.flush();
