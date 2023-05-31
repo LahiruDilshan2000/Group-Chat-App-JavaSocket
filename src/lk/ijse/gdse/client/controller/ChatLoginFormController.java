@@ -28,9 +28,9 @@ public class ChatLoginFormController {
             txtUserName.requestFocus();
             return;
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/lk/ijse/gdse/Client/view/ChatUiForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("/lk/ijse/gdse/Client/view/chat.fxml"));
         Parent load = fxmlLoader.load();
-        ChatUiFormController controller = fxmlLoader.getController();
+        ChatController controller = fxmlLoader.getController();
         controller.setUserName(txtUserName.getText());
         Stage stage = new Stage();
         stage.setTitle("Group Chatt");
