@@ -24,8 +24,7 @@ public class ServerInitializer {
                 socket = serverSocket.accept();
                 System.out.println("accept");
 
-                LocalSocketManager localSocketManager = new LocalSocketManager(socket, localSocketManagerList
-                        /*new DataInputStream(socket.getInputStream()).readUTF()*/ );
+                LocalSocketManager localSocketManager = new LocalSocketManager(socket, localSocketManagerList);
                 localSocketManagerList.add(localSocketManager);
 
                 Thread thread =new Thread(localSocketManager);

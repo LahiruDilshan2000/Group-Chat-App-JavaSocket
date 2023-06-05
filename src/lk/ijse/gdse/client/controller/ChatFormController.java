@@ -113,6 +113,9 @@ public class ChatFormController {
 
             ImageView imageView = new ImageView(image1);
 
+            imageView.setFitWidth(200);
+            imageView.setPreserveRatio(true);
+
             hBox.getChildren().add(imageView);
 
             Platform.runLater(new Runnable() {
@@ -129,6 +132,7 @@ public class ChatFormController {
     private void setText() {
 
         try {
+
             String userName = inputStream.readUTF();
             String message = inputStream.readUTF();
 
@@ -201,9 +205,10 @@ public class ChatFormController {
             } else if (null != this.file) {
 
                 BufferedImage bufferedImage = ImageIO.read(this.file);
+                System.out.println(this.file);
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+                ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
 
                 byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
 
@@ -235,6 +240,11 @@ public class ChatFormController {
         Stage stage = (Stage) lblName.getScene().getWindow();
 
         FileChooser fileChooser = new FileChooser();
+
+
+        File defaultPath = new File("C:\\Users\\RedSparrow_YT\\Downloads\\Pics");
+        fileChooser.setInitialDirectory(defaultPath);
+
         this.file = fileChooser.showOpenDialog(stage);
 
         if (null != this.file) {

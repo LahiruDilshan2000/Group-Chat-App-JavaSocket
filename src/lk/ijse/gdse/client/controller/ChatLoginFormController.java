@@ -19,11 +19,6 @@ public class ChatLoginFormController {
     public AnchorPane pane;
     public JFXTextField txtUserName;
 
-    public void btnLogInOnAction(ActionEvent actionEvent) throws IOException {
-
-
-    }
-
     public void btnLoginOnAction(ActionEvent actionEvent) {
         if (txtUserName.getText().isEmpty()){
             new Alert(Alert.AlertType.ERROR, "Name is empty !", ButtonType.OK).show();

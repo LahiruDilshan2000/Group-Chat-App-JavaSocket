@@ -20,13 +20,13 @@
          <children>
             <Pane layoutX="543.0" prefHeight="83.0" prefWidth="59.0" style="-fx-background-color: #374259; -fx-background-radius: 100% 0% 0% 100% / 100% 100% 0% 0%;" />
             <Pane layoutX="-5.0" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: #374259; -fx-background-radius: 0% 100% 47% 53% / 30% 0% 100% 70%;" />
-            <Pane layoutX="16.0" layoutY="12.0" prefHeight="55.0" prefWidth="55.0" style="-fx-background-color: #116D6E; -fx-background-radius: 50%;" />
-            <Label fx:id="lblName" layoutX="95.0" layoutY="32.0" text="Live Chate" textFill="WHITE">
+            <Pane layoutX="16.0" layoutY="12.0" prefHeight="55.0" prefWidth="55.0" style="-fx-background-color: #747d8c; -fx-background-radius: 50%;" />
+            <Pane layoutX="90.0" layoutY="39.0" prefHeight="10.0" prefWidth="10.0" style="-fx-background-color: #0be881; -fx-background-radius: 50%;" />
+            <Label fx:id="lblName" layoutX="123.0" layoutY="33.0" prefHeight="23.0" prefWidth="207.0" textFill="WHITE">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <Pane layoutX="215.0" layoutY="39.0" prefHeight="10.0" prefWidth="10.0" style="-fx-background-color: #0be881; -fx-background-radius: 50%;" />
          </children>
       </Pane>
       <Pane layoutX="541.0" layoutY="666.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #19A7CE; -fx-background-radius: 50%;">

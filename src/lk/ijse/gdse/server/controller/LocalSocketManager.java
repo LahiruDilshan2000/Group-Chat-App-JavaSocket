@@ -80,7 +80,7 @@ public class LocalSocketManager implements Runnable {
 
         try {
 
-            String userName = inputStream.readUTF();
+           String userName = inputStream.readUTF();
             String message = inputStream.readUTF();
             System.out.println(userName);
             System.out.println(message);
