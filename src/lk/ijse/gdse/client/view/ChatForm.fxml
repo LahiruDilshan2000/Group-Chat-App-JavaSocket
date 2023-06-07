@@ -14,22 +14,22 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane focusTraversable="true" prefHeight="723.0" prefWidth="602.0" style="-fx-background-color: rgba(255,255,255,0.9);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.client.controller.ChatFormController">
+<AnchorPane focusTraversable="true" prefHeight="748.0" prefWidth="602.0" style="-fx-background-color: rgba(255,255,255,0.9);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.client.controller.ChatFormController">
    <children>
-      <Pane prefHeight="83.0" prefWidth="602.0" style="-fx-background-color: #27374D;">
+      <Pane prefHeight="80.0" prefWidth="602.0" style="-fx-background-color: #27374D;">
          <children>
-            <Pane layoutX="543.0" prefHeight="83.0" prefWidth="59.0" style="-fx-background-color: #374259; -fx-background-radius: 100% 0% 0% 100% / 100% 100% 0% 0%;" />
+            <Pane layoutX="517.0" prefHeight="83.0" prefWidth="85.0" style="-fx-background-color: #374259; -fx-background-radius: 100% 0% 0% 100% / 100% 100% 0% 0%;" />
             <Pane layoutX="-5.0" prefHeight="36.0" prefWidth="100.0" style="-fx-background-color: #374259; -fx-background-radius: 0% 100% 47% 53% / 30% 0% 100% 70%;" />
-            <Pane layoutX="16.0" layoutY="12.0" prefHeight="55.0" prefWidth="55.0" style="-fx-background-color: #747d8c; -fx-background-radius: 50%;" />
-            <Pane layoutX="90.0" layoutY="39.0" prefHeight="10.0" prefWidth="10.0" style="-fx-background-color: #0be881; -fx-background-radius: 50%;" />
-            <Label fx:id="lblName" layoutX="123.0" layoutY="33.0" prefHeight="23.0" prefWidth="207.0" textFill="WHITE">
+            <Pane layoutX="16.0" layoutY="13.0" prefHeight="55.0" prefWidth="55.0" style="-fx-background-color: #747d8c; -fx-background-radius: 50%;" />
+            <Pane layoutX="90.0" layoutY="36.0" prefHeight="10.0" prefWidth="10.0" style="-fx-background-color: #0be881; -fx-background-radius: 50%;" />
+            <Label fx:id="lblName" layoutX="123.0" layoutY="30.0" prefHeight="23.0" prefWidth="207.0" textFill="WHITE">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="541.0" layoutY="666.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #19A7CE; -fx-background-radius: 50%;">
+      <Pane layoutX="542.0" layoutY="688.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #19A7CE; -fx-background-radius: 50%;">
          <children>
             <ImageView fitHeight="26.0" fitWidth="25.0" layoutX="14.0" layoutY="12.0">
                <image>
@@ -43,21 +43,21 @@
             </JFXButton>
          </children>
       </Pane>
-      <ScrollPane fx:id="ScrollPane" fitToWidth="true" layoutX="8.0" layoutY="286.0" prefHeight="363.0" prefWidth="602.0" style="-fx-border-width: 0; -fx-background-color: #fff;" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="83.0">
+      <ScrollPane fx:id="ScrollPane" fitToWidth="true" layoutX="8.0" layoutY="113.0" prefHeight="564.0" prefWidth="602.0" style="-fx-border-width: 0; -fx-background-color: #fff;" AnchorPane.bottomAnchor="71.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <content>
-            <VBox fx:id="vbox" prefHeight="525.0" prefWidth="545.0" style="-fx-background-color: #fff;" />
+            <VBox fx:id="vbox" prefHeight="557.0" prefWidth="562.0" style="-fx-background-color: #fff;" />
          </content>
       </ScrollPane>
-      <JFXTextField fx:id="txtMsg" focusColor="#405aa800" layoutX="71.0" layoutY="670.0" prefHeight="40.0" prefWidth="448.0" promptText="Type here " styleClass="fill" stylesheets="@../assets/css/Styles.css" unFocusColor="#4d4d4d00">
+      <JFXTextField fx:id="txtMsg" focusColor="#405aa800" layoutX="77.0" layoutY="695.0" prefHeight="40.0" prefWidth="448.0" promptText="Type here " styleClass="fill" stylesheets="@../assets/css/Styles.css" unFocusColor="#4d4d4d00">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </JFXTextField>
-      <Line endX="499.5" layoutX="101.0" layoutY="655.5" startX="-100.0" stroke="#0000002b" strokeWidth="2.0" AnchorPane.bottomAnchor="67.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.5" AnchorPane.topAnchor="654.5" />
-      <Pane layoutX="14.0" layoutY="673.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #19A7CE; -fx-background-radius: 50%;">
+      <Line endX="499.5" layoutX="101.0" layoutY="679.0" startX="-100.0" stroke="#0000002b" strokeWidth="2.0" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.5" AnchorPane.topAnchor="678.0" />
+      <Pane layoutX="14.0" layoutY="696.0" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #19A7CE; -fx-background-radius: 50%;">
          <children>
             <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="6.0" layoutY="6.0">
                <image>
@@ -74,12 +74,12 @@
             </JFXButton>
          </children>
       </Pane>
-      <ImageView fx:id="img" fitHeight="61.0" fitWidth="59.0" layoutX="71.0" layoutY="658.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="img" fitHeight="61.0" fitWidth="59.0" layoutX="64.0" layoutY="679.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/pics/Chat.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnCancel" layoutX="149.0" layoutY="674.0" onAction="#btnCancelOnAction" opacity="0.78" prefHeight="15.0" prefWidth="15.0" style="-fx-background-color: #27374D; -fx-background-radius: 50%;" text="x" textFill="WHITE">
+      <JFXButton fx:id="btnCancel" layoutX="149.0" layoutY="695.0" onAction="#btnCancelOnAction" opacity="0.78" prefHeight="15.0" prefWidth="15.0" style="-fx-background-color: #27374D; -fx-background-radius: 50%;" text="x" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>

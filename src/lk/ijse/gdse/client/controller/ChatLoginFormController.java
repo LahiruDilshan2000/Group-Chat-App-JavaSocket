@@ -10,8 +10,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import lk.ijse.gdse.server.controller.LocalSocketManager;
 
 import java.io.IOException;
+
+import static lk.ijse.gdse.server.ServerInitializer.localSocketManagerList;
 
 public class ChatLoginFormController {
 
@@ -20,6 +23,8 @@ public class ChatLoginFormController {
     public JFXTextField txtUserName;
 
     public void btnLoginOnAction(ActionEvent actionEvent) {
+
+        isExists();
         if (txtUserName.getText().isEmpty()){
             new Alert(Alert.AlertType.ERROR, "Name is empty !", ButtonType.OK).show();
             txtUserName.setFocusColor(Paint.valueOf("Red"));
@@ -38,9 +43,20 @@ public class ChatLoginFormController {
         Stage stage = new Stage();
         stage.setTitle("Group Chatt");
         stage.setScene(new Scene(load));
+        controller.setStage(stage);
         stage.centerOnScreen();
         //stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
         txtUserName.clear();
+    }
+
+    public void isExists(){
+
+       // System.out.println(LocalSocketManager.localSocketManagerList.size());
+
+        for (LocalSocketManager l: localSocketManagerList){
+            System.out.println("1");
+            System.out.println(l.userName);
+        }
     }
 }

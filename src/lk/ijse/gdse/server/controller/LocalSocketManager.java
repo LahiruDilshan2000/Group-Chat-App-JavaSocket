@@ -12,6 +12,7 @@ public class LocalSocketManager implements Runnable {
     public DataInputStream inputStream;
     public DataOutputStream outputStream;
     public String type;
+    public String userName;
 
     public LocalSocketManager(Socket socket, List<LocalSocketManager> localSocketManagerList) {
 
@@ -27,16 +28,27 @@ public class LocalSocketManager implements Runnable {
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
 
+
             while (socket.isConnected()) {
 
-                type = inputStream.readUTF();
-                if (type.equalsIgnoreCase("text")) {
+                this.type = inputStream.readUTF();
+                if (this.type.equalsIgnoreCase("text")) {
 
                     sendText();
 
-                }else {
+                }else if(this.type.equalsIgnoreCase("picture")){
 
                     sendFile();
+
+                }else if(this.type.equalsIgnoreCase("Close")) {
+
+                    System.out.println(localSocketManagerList.size());
+                    localSocketManagerList.remove(this);
+                    System.out.println(localSocketManagerList.size());
+
+                }else {
+
+                    this.userName = this.type;
 
                 }
             }
@@ -63,11 +75,15 @@ public class LocalSocketManager implements Runnable {
             inputStream.read(imageAr);
 
             for (LocalSocketManager localSocketManager : localSocketManagerList) {
-                localSocketManager.outputStream.writeUTF(type);
-                localSocketManager.outputStream.writeUTF(userName);
-                localSocketManager.outputStream.write(sizeAr);
-                localSocketManager.outputStream.write(imageAr);
-                localSocketManager.outputStream.flush();
+
+                if(!localSocketManager.equals(this)){
+
+                    localSocketManager.outputStream.writeUTF(type);
+                    localSocketManager.outputStream.writeUTF(userName);
+                    localSocketManager.outputStream.write(sizeAr);
+                    localSocketManager.outputStream.write(imageAr);
+                    localSocketManager.outputStream.flush();
+                }
             }
 
         } catch (IOException e) {
@@ -86,10 +102,14 @@ public class LocalSocketManager implements Runnable {
             System.out.println(message);
 
             for (LocalSocketManager localSocketManager : localSocketManagerList) {
-                localSocketManager.outputStream.writeUTF(type);
-                localSocketManager.outputStream.writeUTF(userName);
-                localSocketManager.outputStream.writeUTF(message);
-                localSocketManager.outputStream.flush();
+
+                if (!localSocketManager.equals(this)) {
+
+                    localSocketManager.outputStream.writeUTF(type);
+                    localSocketManager.outputStream.writeUTF(userName);
+                    localSocketManager.outputStream.writeUTF(message);
+                    localSocketManager.outputStream.flush();
+                }
             }
 
         } catch (IOException e) {

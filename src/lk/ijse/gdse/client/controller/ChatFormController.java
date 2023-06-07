@@ -8,6 +8,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -25,6 +27,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.Optional;
 
 public class ChatFormController {
     public VBox vbox;
@@ -51,15 +54,20 @@ public class ChatFormController {
                 inputStream = new DataInputStream(socket.getInputStream());
                 outputStream = new DataOutputStream(socket.getOutputStream());
 
+                sendUserName();
 
                 while (socket.isConnected()) {
 
                     type = inputStream.readUTF();
 
                     if (type.equalsIgnoreCase("text")) {
-                        setText();
+
+                        setReceivingText();
+
                     } else {
-                        setFile();
+
+                        setReceivingFile();
+
                     }
 
 
@@ -82,9 +90,23 @@ public class ChatFormController {
                 ScrollPane.setVvalue((Double) newValue);
             }
         });
+
+
     }
 
-    private void setFile() {
+    private void sendUserName() {
+
+        try {
+
+            outputStream.writeUTF(this.userName.trim());
+            outputStream.flush();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setReceivingFile() {
 
         try {
 
@@ -101,7 +123,9 @@ public class ChatFormController {
             HBox hBox = new HBox();
 
             if (userName.equalsIgnoreCase(this.userName)) {
+
                 hBox.setAlignment(Pos.CENTER_RIGHT);
+
             } else {
                 hBox.setAlignment(Pos.CENTER_LEFT);
             }
@@ -113,7 +137,7 @@ public class ChatFormController {
 
             ImageView imageView = new ImageView(image1);
 
-            imageView.setFitWidth(200);
+            imageView.setFitWidth(180);
             imageView.setPreserveRatio(true);
 
             hBox.getChildren().add(imageView);
@@ -129,7 +153,7 @@ public class ChatFormController {
         }
     }
 
-    private void setText() {
+    private void setReceivingText() {
 
         try {
 
@@ -142,28 +166,13 @@ public class ChatFormController {
                 Text text = new Text(message);
                 TextFlow textFlow = new TextFlow(text);
 
-                if (userName.equalsIgnoreCase(this.userName)) {
+                text.setText(userName + " : " + message);
 
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
-                    hBox.setPadding(new Insets(5, 5, 5, 10));
+                hBox.setAlignment(Pos.CENTER_LEFT);
+                hBox.setPadding(new Insets(5, 5, 5, 10));
 
-                    textFlow.setStyle("-fx-color : rgb(239, 242, 255);" +
-                            "-fx-background-color: rgb(15, 125, 242);" +
-                            "-fx-background-radius: 20px");
-
-                    text.setFill(Color.color(0.934, 0.945, 0.996));
-
-                } else {
-
-                    text.setText(userName + " : " + message);
-
-                    hBox.setAlignment(Pos.CENTER_LEFT);
-                    hBox.setPadding(new Insets(5, 5, 5, 10));
-
-                    textFlow.setStyle("-fx-background-color: rgb(233, 233, 235);" +
-                            "-fx-background-radius: 20px");
-
-                }
+                textFlow.setStyle("-fx-background-color: rgb(233, 233, 235);" +
+                        "-fx-background-radius: 20px");
 
                 text.setStyle("-fx-font-size: 20px;");
                 textFlow.setPadding(new Insets(5, 10, 8, 10));
@@ -179,7 +188,6 @@ public class ChatFormController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
 
@@ -200,15 +208,31 @@ public class ChatFormController {
                 outputStream.writeUTF(this.userName.trim());
                 outputStream.writeUTF(txtMsg.getText().trim());
                 outputStream.flush();
+                setText();
                 txtMsg.clear();
 
             } else if (null != this.file) {
 
                 BufferedImage bufferedImage = ImageIO.read(this.file);
-                System.out.println(this.file);
+                String format = this.file.getName().trim();
+
+                String[] split = format.split("\\.");
 
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+
+                if (split[1].equalsIgnoreCase("png")) {
+
+                    ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+
+                } else if (split[1].equalsIgnoreCase("jpg")) {
+
+                    ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+
+                } else {
+
+                    ImageIO.write(bufferedImage, "jpeg", byteArrayOutputStream);
+
+                }
 
                 byte[] size = ByteBuffer.allocate(4).putInt(byteArrayOutputStream.size()).array();
 
@@ -216,8 +240,9 @@ public class ChatFormController {
                 outputStream.writeUTF(this.userName.trim());
                 outputStream.write(size);
                 outputStream.write(byteArrayOutputStream.toByteArray());
-
                 outputStream.flush();
+
+                setImage(byteArrayOutputStream.toByteArray());
 
                 txtMsg.setVisible(true);
                 btnCancel.setVisible(true);
@@ -233,6 +258,58 @@ public class ChatFormController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void setImage(byte[] imageAr) {
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+
+        Image image = new Image(new ByteArrayInputStream(imageAr));
+
+        ImageView imageView = new ImageView(image);
+
+        imageView.setFitWidth(180);
+        imageView.setPreserveRatio(true);
+
+        hBox.getChildren().add(imageView);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                vbox.getChildren().add(hBox);
+            }
+        });
+    }
+
+    private void setText() {
+
+
+        HBox hBox = new HBox();
+
+        Text text = new Text(txtMsg.getText().trim());
+        TextFlow textFlow = new TextFlow(text);
+
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(5, 5, 5, 10));
+
+        textFlow.setStyle("-fx-color : rgb(239, 242, 255);" +
+                "-fx-background-color: rgb(15, 125, 242);" +
+                "-fx-background-radius: 20px");
+
+        text.setFill(Color.color(0.934, 0.945, 0.996));
+        text.setStyle("-fx-font-size: 20px;");
+        textFlow.setPadding(new Insets(5, 10, 8, 10));
+        hBox.getChildren().add(textFlow);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                vbox.getChildren().add(hBox);
+            }
+        });
     }
 
     public void btnAddOnAction(ActionEvent actionEvent) throws IOException {
@@ -270,5 +347,30 @@ public class ChatFormController {
         img.setVisible(false);
         btnCancel.setVisible(false);
         txtMsg.setVisible(true);
+    }
+
+    public void setStage(Stage stage) {
+
+
+        stage.setOnCloseRequest(event -> {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to close this chat !", ButtonType.YES, ButtonType.NO);
+            Optional<ButtonType> buttonType = alert.showAndWait();
+
+            if (buttonType.get() == ButtonType.YES) {
+
+                try {
+
+                    outputStream.writeUTF("Close".trim());
+                    outputStream.flush();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                event.consume();
+            }
+
+        });
     }
 }

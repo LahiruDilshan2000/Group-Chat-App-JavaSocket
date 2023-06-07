@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerInitializer {
+
+    public static List<LocalSocketManager> localSocketManagerList = new ArrayList<>();
+
     public static void main(String[] args) {
 
-        List<LocalSocketManager> localSocketManagerList = new ArrayList<>();
         ServerSocket serverSocket;
         Socket socket;
         try {
@@ -31,6 +33,9 @@ public class ServerInitializer {
                 System.out.println("Thread start");
                 thread.start();
             }
+            //socket.close();
+            serverSocket.close();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
