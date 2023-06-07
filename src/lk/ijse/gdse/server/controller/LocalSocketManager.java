@@ -12,7 +12,6 @@ public class LocalSocketManager implements Runnable {
     public DataInputStream inputStream;
     public DataOutputStream outputStream;
     public String type;
-    public String userName;
 
     public LocalSocketManager(Socket socket, List<LocalSocketManager> localSocketManagerList) {
 
@@ -45,10 +44,9 @@ public class LocalSocketManager implements Runnable {
                     System.out.println(localSocketManagerList.size());
                     localSocketManagerList.remove(this);
                     System.out.println(localSocketManagerList.size());
-
-                }else {
-
-                    this.userName = this.type;
+                    this.type = "Text";
+                    sendText();
+                    Thread.currentThread().isInterrupted();
 
                 }
             }

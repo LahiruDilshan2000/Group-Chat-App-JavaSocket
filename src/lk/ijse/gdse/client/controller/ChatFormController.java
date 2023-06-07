@@ -54,8 +54,6 @@ public class ChatFormController {
                 inputStream = new DataInputStream(socket.getInputStream());
                 outputStream = new DataOutputStream(socket.getOutputStream());
 
-                sendUserName();
-
                 while (socket.isConnected()) {
 
                     type = inputStream.readUTF();
@@ -69,8 +67,6 @@ public class ChatFormController {
                         setReceivingFile();
 
                     }
-
-
                 }
                 inputStream.close();
                 outputStream.close();
@@ -94,18 +90,6 @@ public class ChatFormController {
 
     }
 
-    private void sendUserName() {
-
-        try {
-
-            outputStream.writeUTF(this.userName.trim());
-            outputStream.flush();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private void setReceivingFile() {
 
         try {
@@ -121,21 +105,13 @@ public class ChatFormController {
 
 
             HBox hBox = new HBox();
-
-            if (userName.equalsIgnoreCase(this.userName)) {
-
-                hBox.setAlignment(Pos.CENTER_RIGHT);
-
-            } else {
-                hBox.setAlignment(Pos.CENTER_LEFT);
-            }
+            hBox.setAlignment(Pos.CENTER_LEFT);
 
             hBox.setPadding(new Insets(5, 5, 5, 10));
 
+            Image image = new Image(new ByteArrayInputStream(imageAr));
 
-            Image image1 = new Image(new ByteArrayInputStream(imageAr));
-
-            ImageView imageView = new ImageView(image1);
+            ImageView imageView = new ImageView(image);
 
             imageView.setFitWidth(180);
             imageView.setPreserveRatio(true);
@@ -243,6 +219,7 @@ public class ChatFormController {
                 outputStream.flush();
 
                 setImage(byteArrayOutputStream.toByteArray());
+                byteArrayOutputStream.close();
 
                 txtMsg.setVisible(true);
                 btnCancel.setVisible(true);
@@ -362,6 +339,8 @@ public class ChatFormController {
                 try {
 
                     outputStream.writeUTF("Close".trim());
+                    outputStream.writeUTF(this.userName.trim());
+                    outputStream.writeUTF("left the chat");
                     outputStream.flush();
 
                 } catch (IOException e) {

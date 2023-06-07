@@ -24,7 +24,6 @@ public class ChatLoginFormController {
 
     public void btnLoginOnAction(ActionEvent actionEvent) {
 
-        isExists();
         if (txtUserName.getText().isEmpty()){
             new Alert(Alert.AlertType.ERROR, "Name is empty !", ButtonType.OK).show();
             txtUserName.setFocusColor(Paint.valueOf("Red"));
@@ -48,15 +47,5 @@ public class ChatLoginFormController {
         //stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
         txtUserName.clear();
-    }
-
-    public void isExists(){
-
-       // System.out.println(LocalSocketManager.localSocketManagerList.size());
-
-        for (LocalSocketManager l: localSocketManagerList){
-            System.out.println("1");
-            System.out.println(l.userName);
-        }
     }
 }
